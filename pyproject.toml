@@ -5,7 +5,6 @@ description = "Aigarth Intelligent Tissue"
 authors = [
     {email = "ambient@mailbox.org"}
 ]
-license = {text = "Aigarth"}
 license-files = ["LICEN[CS]E*"]
 readme = "README.md"
 
