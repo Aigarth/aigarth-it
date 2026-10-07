@@ -226,6 +226,9 @@ class AigarthITUCl(AigarthITU):
         :return:        ITU's output (set of balanced 'trit' values) computed from the input values along with some
                         'feedforward' procedure stats
         """
+        # A 'None' feed is a valid (default) input; treat it as an empty feed, as the
+        # neuron-level feedforward() does, rather than failing on len(None).
+        feed = feed or tuple()
         # Reset states of all neurons
         for n in self._circle:
             n.state = 0
