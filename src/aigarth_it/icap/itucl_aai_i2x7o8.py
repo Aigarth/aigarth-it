@@ -114,6 +114,7 @@ class ITUClArithmeticAdditionIntI2x7O8(AigarthITUCl):
             f"dataset={dataset_fpath or f'{type(dataset)} at {id(dataset)}'} ..."
         )
 
+        csv_dh = None  # bound before the try so the finally's close() can't mask a dataset error
         try:
             if dataset_fpath:
                 ids_metadata = dataset_meta_csv(dataset_fpath, self.meta.tds_hash_algorithm)
@@ -155,7 +156,7 @@ class ITUClArithmeticAdditionIntI2x7O8(AigarthITUCl):
         except (OSError, TypeError, ValueError) + PYDANTIC_ERRORS as e:
             raise AigarthITUError(f"{self.lm_prefix}Create reflections: {type(e).__name__}: {e}") from e
         finally:
-            if dataset_fpath:
+            if dataset_fpath and csv_dh is not None:
                 csv_dh.close()
 
         LOG.info(
